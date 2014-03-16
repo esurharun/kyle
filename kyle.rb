@@ -1,3 +1,4 @@
+#!/usr/bin/ruby
 require 'openssl'
 require 'highline/import'
 
@@ -174,7 +175,13 @@ else
   account  = ask("Account:")
   port  = ask("Port:")
   key  = ask("Key:") { |q| q.echo = false }
-
+  key2  = ask("Key (again):") { |q| q.echo = false }
+  
+  if (key != key2)
+    puts "Passes do not match!!"
+    exit
+  end
+  
   puts "Calculating..."
   vals = generate(hostname,account,port,key)
   
