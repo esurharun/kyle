@@ -4,7 +4,7 @@ require 'highline/import'
 
 $ENC_ALGS = [ 
   "des3",            "desx",         "des",          "cast",         "bf",
-  "aes128",       "aes192",       "aes256",       "rc4",             "rc5"
+  "aes128",       "aes192",       "aes256",       "rc4"
  
 ]
 
@@ -135,19 +135,19 @@ end
 $testarr = [
   [
   "microsoft.com","bill.gates","666","iKnowWhatYouDidToIBMLastSummer",
-  "coW//.1@TI3Y6P1I", "-Szvi.iY4g1kdjXy", "7r6mg-7deXock6PZ", "xa-Nr-oNcp*VIM*p",
-  "OXwzEPWyDjs7T!DO", "hRTlwhn/hNdhYsbF", "qwnfRTA0k.Oh1cRA", "jk%w68nPmnA8ZORr",
-  "Zo5evvyrSAqysC-I", "EFg7Fdb.%u-F4sCB", "uC*F2phIvh2muK/A", "DyDhQr6zEiIvIlTo",
-  "4@QfNyaRGPl4.aCY", "Nf4GqhnTxxy1fbCS", "owqa/Z50INdeSL*n", "difCKZ%8R1yJiw9n",
-  "00SQaINu/00ZTIIb", "SAuQMhQoy6%3Ij,+", "10q**M/9eA-9hUp9"
+  "WW0nQIY.0Rn6D8d2", "nXzU19faM7*gv7,I", "cgu0q7*DuT65r3rY", "ILZ,5vZLl/wRxf9y",
+  "Od..eF2k6_l3XHxe", "sedWPnJsSb4DEJw-", "JEr_SzZBoofgI7Tb", "xbbg@ebdz3FA.n6S",
+  "5EMS!XZP7WfPLKpO", "LcwDHUu0/ynzdSWE", "5+fDOoY.yrE+ESbj", "VWKqetfVKZtT,FI9",
+  "EDe7XvMZ%8tt2vsT", "vks.HPeDVkklS_qb", "hcVznOxvT5YvxIlU", "iBTr-I42uz7h7XnA",
+  "fLV,g6%@1G7xpQil", "toMFvN@Zd,b*KBC%", "FYbi/6Udx_4mO3D0"
   ],
   [
     $passctable.join,$passctable.join,$passctable.join,$passctable.join,
-    "hglvFa7+JQLRd5tR", "DWCu*417y/s2h0lY", "Y7bGjG%cQNo70RXA", "A%P/biGk@Y6C8!@-",
-    "lkkkC.uFN-vaaawR", "0HZvPhjpPTXlPeb!", "UoI%jFeN3_@ypgXI", "q*Dhoul/9!5Iwj5g",
-    "-!NzBxb5lPdsf7ZX", "%vYYS/mTq%eAk2I!", "fjXHnk0qvUl0MsT.", "sPjcoCsvMo2dF%ZD",
-    "iuOEJFwDpEa1retY", "s000FfYEEjlfa7kC", "mTgoP+lwtpZT+gvR", "GgEli28jWlseYe@c",
-    "cP/e!FlnOxq.q+2X", "wrzP9DvaL9_BS9pi", "I_0!jpVgOXSDtnc!"
+    "cuoTJm!UuIYCcQxs", "3HrQ3s/j53A+Rssm", "KK+IV7QE9Imd65hi", "M@FH%uduAIvn/0Fg",
+    "C@ffelLPbsh!ps68", "mF%j06cgTaD63v5C", "5pRiaZDk%SY6quet", "d56XIGF8PhHu!TfI",
+    "71UES8Six9G48hsc", "kmtu%gr1.k%T!tPy", "zE8*qE+uU.PsOkYY", "77Rbxcaiwp4Fwm.M",
+    "qWT0K%tFP8w7_H0S", "2uGyZI.SzAOujmkw", ".QhaGPzV_jnnRj@F", "4FsOh0GfaM4MVUUH",
+    "_3r0DzAdYvEp@dlA", "qcWgE@nt9SgUEsjP", "8F1BJ.OlV5Kj!wmM"
    ]
 ]
 
