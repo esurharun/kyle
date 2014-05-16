@@ -19,10 +19,47 @@ And kyle differs with password generators with;
 
 ### Installation
 
-```
-gem install kyle
+```bash
+sh$ gem install kyle
 ```
 
+### Usage
+
+Just type ***kyle*** on command line to run.
+
+```bash
+Hostname:
+abc.com
+Account:
+superuser
+Port:
+80
+Key:
+
+Key (again):
+
+Calculating...
+Ape	_,o_iMmO5L!ZRlQH
+Bat	EZPBcTf6oo-jzWpM
+Bear	.ZmYlZ4PQpdOfish
+Whale	wb%EOphi7uqySwRZ
+Crow	eTXvLc.4FgTdIEJ%
+Dog	.Q,PBaMeFRO8nG-a
+Cat	,lHFEMVXo%SjTlsm
+Wasp	e0CyUAHvs9-ljGFr
+Fox	2%yxWtBZz-cOVW@b
+Gull	avuR86nGjG6DNkkX
+Jackal	+zhRwHPWCHknxlZp
+Lion	xMxPwb0E+5vQ_q4x
+Panda	qj7GQqJP7EKjU*gG
+Rat	kvniGIszq758@Sie
+Shark	1aF3.iiV,e*OTGpT
+Spider	*nrvUtila0wnmb22
+Turtle	wYQerXRYffJJGvxZ
+Wolf	MD!VTDkikYxZvzM!
+Zebra	asVw!Q/5!QvqxiRf
+```
+Pick any password depending on your favourite animal.
 
 ### Algorithm
 
