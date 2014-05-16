@@ -26,7 +26,7 @@ gem install kyle
 
 ### Algorithm
 
-## Overall
+#### Overall
 
 ```
 
@@ -82,7 +82,7 @@ gem install kyle
 
 ```
 
-## Iterative Hash
+#### Iterative Hash
 
 ```
                                                               +-------------+
@@ -108,7 +108,7 @@ gem install kyle
                                                               +-------------+
 ```                                                              
 
-## Iterative Encryption
+#### Iterative Encryption
 
 ```
                                                                            +-------------+
