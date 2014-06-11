@@ -169,19 +169,72 @@ class Kyle
     puts "Finished #{failed ? "and Failed" : "successfully"}"
   end
 
+  def self.getkey()
+
+    key = "a"
+    key2 = "b"
+
+    while (key != key2)
+      key  = ask("Key:") { |q| q.echo = false }
+      key2  = ask("Key (again):") { |q| q.echo = false }
+    
+      if (key != key2)
+        puts "Passes do not match!!"
+      end
+    end
+
+    return key
+
+  end
+
   def self.run(args)
+
+    puts "Kyle - A password manager for paranoids. ( 0.0.2 )"
+    puts ""
+
     if (args.size > 0 && args[0] == "test")
       test_it()
+    elsif (args.size == 3 && args[0].to_s.downcase == "-b" && args[1] != nil && args[2] != nil)
+
+      # Batch MODE
+      # -b record_file favourite_animal_name
+      
+      key = getkey()
+
+      text=File.open(args[1]).read
+      text.gsub!(/\r\n?/, "\n")
+      text.each_line do |line|
+
+          hostname, account, port = line.split(';')
+
+          port = port.gsub(/\n/,"") 
+
+          vals = generate(hostname,account,port,key)
+
+          $animalnames.each.with_index(0) do |animal,i|
+      
+            puts "#{hostname}:#{account}:#{port} = #{vals[i]}" if (animal.downcase == args[2].downcase)
+      
+          end
+
+
+      end
+
     else
       hostname = ask("Hostname:")
       account  = ask("Account:")
       port  = ask("Port:")
-      key  = ask("Key:") { |q| q.echo = false }
-      key2  = ask("Key (again):") { |q| q.echo = false }
-      
-      if (key != key2)
-        puts "Passes do not match!!"
-        exit
+      key  = getkey()
+
+      if (args.size > 0 && args[0].to_s.downcase == "-r") 
+        # Record given parameters to .kyle file at home
+        kyle_r_path = File.join(Dir.home,".kyle")
+
+        line_to_add = "#{hostname};#{account};#{port}"
+
+        File.open(kyle_r_path, 'a') do |file|
+          file.puts line_to_add
+        end
       end
       
       puts "Calculating..."
