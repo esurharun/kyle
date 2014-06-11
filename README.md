@@ -65,7 +65,8 @@ Pick any password depending on your favourite animal.
 
 ##### Added -b (BATCH) mode which help you generate bulk passwords;
 
-```kyle -b <kyle_record_file> <favourite_animal>
+```
+kyle -b <kyle_record_file> <favourite_animal>
 
 <kyle_record_file> a file contains host, account, port data with ; delimited. Ex: facebook.com;zuckerberg;80
 <favourite_animal> your favourite animal name
@@ -73,7 +74,8 @@ Pick any password depending on your favourite animal.
 
 ##### Added -r option to add entered values to <USER_HOME>/.kyle file
 
-```kyle -r
+```
+kyle -r
 
 If you generate your password with the -r parameter host, account and port data will be saved into <USER_HOME>/.kyle file
 ```
