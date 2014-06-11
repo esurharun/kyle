@@ -77,7 +77,8 @@ kyle -b <kyle_record_file> <favourite_animal>
 ```
 kyle -r
 
-If you generate your password with the -r parameter host, account and port data will be saved into <USER_HOME>/.kyle file
+If you generate your password with the -r parameter host, account and port data 
+will be saved into <USER_HOME>/.kyle file
 ```
 
 
