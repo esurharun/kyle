@@ -3,10 +3,10 @@ require 'openssl'
 require 'highline/import'
 
 
-$ENC_ALGS = [ 
+$ENC_ALGS = [
   "des3",            "desx",         "des",          "cast",         "bf",
   "aes128",       "aes192",       "aes256",       "rc4"
- 
+
 ]
 
 $HSH_ALGS = [
@@ -54,7 +54,7 @@ class Kyle
   end
 
 
-  def self.enc_it(alg,val,key) 
+  def self.enc_it(alg,val,key)
     #puts "enc_it #{alg} #{to_hex(val)} #{to_hex(key)}"
     begin
       cipher = OpenSSL::Cipher::Cipher.new(alg)
@@ -72,7 +72,7 @@ class Kyle
     val.each_byte do |c|
       ret = enc_it($ENC_ALGS[c % ($ENC_ALGS.size)], ret, key)
     end
-    
+
     return ret
   end
 
@@ -97,25 +97,25 @@ class Kyle
     iterative_hash(iterative_hash(val))
   end
 
-  def self.hash2pass(val) 
+  def self.hash2pass(val)
     ret = ""
-    
+
     # to be sure it is long enough
     h = sha512ize(val)
-    
+
     h.each_byte do |c|
       ret += $passctable[c % ($passctable.size)]
     end
-    
+
     return ret[0..15]
   end
 
 
 
   def self.generate(hostname,account,port,key)
-    
+
     ret  = Array.new
-    
+
     harr = [ di_hash(hostname), di_hash(account), di_hash(port), di_hash(key) ]
 
     v1 = iterative_enc(harr[0],harr[1])
@@ -126,11 +126,11 @@ class Kyle
     c = v
     $animalnames.each do |animal|
       c = OpenSSL::PKCS5.pbkdf2_hmac_sha1(c, v, 10000, 32)
-    
+
       ret << hash2pass(c)
-    
+
     end
-    
+
     return ret
   end
 
@@ -155,7 +155,7 @@ class Kyle
 
   def self.test_it()
     puts "Testing..."
-    
+
     failed = false
     (0..1).each do |idx|
       vals = generate($testarr[idx][0],$testarr[idx][1],$testarr[idx][2],$testarr[idx][3])
@@ -177,7 +177,7 @@ class Kyle
     while (key != key2)
       key  = ask("Key:") { |q| q.echo = false }
       key2  = ask("Key (again):") { |q| q.echo = false }
-    
+
       if (key != key2)
         puts "Passes do not match!!"
       end
@@ -187,63 +187,82 @@ class Kyle
 
   end
 
-  def self.run(args)
+  # Don't make the user type the key twice if they're only trying to login
+  def self.getkey_nocheck()
+    ask("Key: ") { |q| q.echo = false }
+  end
 
-    puts "Kyle - A password manager for paranoids. ( 0.0.2 )"
-    puts ""
+  def self.batch_generate(file, animal)
+    key = getkey()
 
-    if (args.size > 0 && args[0] == "test")
-      test_it()
-    elsif (args.size == 3 && args[0].to_s.downcase == "-b" && args[1] != nil && args[2] != nil)
+    text=File.open(file).read
+    text.gsub!(/\r\n?/, "\n")
+    text.each_line do |line|
+      hostname, account, port = line.split(';')
 
-      # Batch MODE
-      # -b record_file favourite_animal_name
-      
-      key = getkey()
+      port = port.gsub(/\n/,"")
 
-      text=File.open(args[1]).read
-      text.gsub!(/\r\n?/, "\n")
-      text.each_line do |line|
+      vals = generate(hostname, account, port, key)
 
-          hostname, account, port = line.split(';')
-
-          port = port.gsub(/\n/,"") 
-
-          vals = generate(hostname,account,port,key)
-
-          $animalnames.each.with_index(0) do |animal,i|
-      
-            puts "#{hostname}:#{account}:#{port} = #{vals[i]}" if (animal.downcase == args[2].downcase)
-      
-          end
-
-
+      $animalnames.each.with_index(0) do |animal, i|
+        puts "#{hostname}:#{account}:#{port} = #{vals[i]}" if (animal.downcase == animal.downcase)
       end
+    end
+  end
 
+  def self.record(hostname, account, port)
+    # Record given parameters to .kyle file at home
+    kyle_r_path = File.join(Dir.home,".kyle")
+
+    line_to_add = "#{hostname};#{account};#{port}"
+
+    File.open(kyle_r_path, 'a') do |file|
+      file.puts line_to_add
+    end
+  end
+
+  def self.prompt(args = {})
+    hostname = args[:hostname] || ask("Hostname:")
+    account  = args[:account] || ask("Account:")
+    port  = args[:port] || ask("Port:")
+    key  = if args[:check_key]; getkey(); else; getkey_nocheck(); end
+
+    record(hostname, account, port) if args[:record]
+
+    puts "Calculating for #{account} on #{hostname}:#{port}"
+    vals = generate(hostname, account, port, key)
+
+    # If no animal supplied, show all
+    if args[:animal].nil?
+      $animalnames.each.with_index(0) do |a, i|
+        puts "#{a}\t#{vals[i]}"
+      end
     else
-      hostname = ask("Hostname:")
-      account  = ask("Account:")
-      port  = ask("Port:")
-      key  = getkey()
+      puts vals[$animalnames.index(args[:animal].capitalize)]
+    end
+  end
 
-      if (args.size > 0 && args[0].to_s.downcase == "-r") 
-        # Record given parameters to .kyle file at home
-        kyle_r_path = File.join(Dir.home,".kyle")
+  def self.run(args)
+    puts "Kyle - A password manager for paranoids. ( 0.0.3 )", ""
 
-        line_to_add = "#{hostname};#{account};#{port}"
+    if args[0] == "test"
+      test_it()
+    elsif args[0] == "-b" # -b file animal
+      batch_generate(args[1], args[2])
+    else
+      record = args.include? "-r" # -r anywhere to record
+      check_key = args.include? "-c" # -c anywhere to prompt for key twice
+      other_args = args.select { |a| a[0] != "-" }
 
-        File.open(kyle_r_path, 'a') do |file|
-          file.puts line_to_add
-        end
-      end
-      
-      puts "Calculating..."
-      vals = generate(hostname,account,port,key)
-      
-      $animalnames.each.with_index(0) do |animal,i|
-      
-        puts "#{animal}\t#{vals[i]}"
-      
+      if other_args.length == 3 # hostname account port
+        prompt(hostname: other_args[0], account: other_args[1],
+               port: other_args[2], check_key: check_key, record: record)
+      elsif other_args.length == 4 # hostname account port animal
+        prompt(hostname: other_args[0], account: other_args[1],
+               port: other_args[2], check_key: check_key, record: record,
+               animal: other_args[3])
+      else
+        prompt(record: record, check_key: check_key)
       end
     end
   end

@@ -1,10 +1,10 @@
 Gem::Specification.new do |s|
   s.name        = 'kyle'
-  s.version     = '0.0.2'
+  s.version     = '0.0.3'
   s.date        = '2014-05-17'
   s.summary     = "Kyle"
   s.description = "A password manager for paranoids."
-  s.authors     = ["Harun Esur"]
+  s.authors     = ["Harun Esur", "Isaac Seymour"]
   s.email       = 'harun.esur@sceptive.com'
   s.executables << 'kyle'
   s.files       = ["lib/kyle.rb"]
