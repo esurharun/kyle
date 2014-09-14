@@ -38,9 +38,11 @@ class KyleCommands
 
       port.gsub!(/\n/, '')
 
-      password = Kyle.new(hostname, account, port, key).passwords[animal]
+      passwords = make_passwords(hostname, account, port, key)
 
-      puts "#{hostname}:#{account}:#{port} = #{password}"
+      passwords.select { |a, _| animals.include? a }.each do |a, p|
+        puts "#{hostname}:#{account}:#{port} (#{a}) = #{p}"
+      end
     end
   end
 
@@ -56,14 +58,14 @@ class KyleCommands
   end
 
   def single_generate
-    record(hostname, account, port) if record?
+    record if record?
 
-    passwords = Kyle.new(hostname, account, port, key).passwords
+    passwords = make_passwords(hostname, account, port, key)
 
-    if animal.nil?
+    if animals.length > 1
       Constants::ANIMALS.each { |a| puts "#{a}\t#{passwords[a]}" }
     else
-      puts passwords[animal]
+      puts passwords[animals[0]]
     end
   end
 
@@ -95,13 +97,15 @@ class KyleCommands
     @port ||= main_args[2] || ask('Port:')
   end
 
-  def animal
-    return @animal unless @animal.nil?
-
+  def animals
     animal = batch? ? main_args[1] : main_args[3]
-    animal.capitalize! unless animal.nil?
 
-    @animal ||= animal
+    return Constants::ANIMALS if animal.nil?
+    Constants::ANIMALS.select { |a| a.downcase == animal.downcase }
+  end
+
+  def make_passwords(hostname, account, port, key)
+    Kyle.new(hostname, account, port, key).passwords
   end
 
   def file

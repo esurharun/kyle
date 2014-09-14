@@ -1,6 +1,6 @@
 Gem::Specification.new do |gem|
   gem.name        = 'kyle'
-  gem.version     = '0.0.4'
+  gem.version     = '0.0.3'
   gem.date        = '2014-09-14'
 
   gem.summary     = 'Kyle'

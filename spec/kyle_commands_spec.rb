@@ -27,7 +27,7 @@ describe KyleCommands do
       expect(cmds.hostname).to eq('microsoft.com')
       expect(cmds.account).to eq('evilcommander')
       expect(cmds.port).to eq('8080')
-      expect(cmds.animal).to eq('Panda')
+      expect(cmds.animals).to eq(['Panda'])
     end
   end
 end
