@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
 
-require 'kyle'
+require 'kyle_commands'
 
-Kyle.run(ARGV)
+KyleCommands.new(ARGV).run

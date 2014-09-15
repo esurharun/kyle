@@ -1,16 +1,22 @@
-Gem::Specification.new do |s|
-  s.name        = 'kyle'
-  s.version     = '0.0.4'
-  s.date        = '2014-07-26'
-  s.summary     = "Kyle"
-  s.description = "A password manager for paranoids."
-  s.authors     = ["Harun Esur"]
-  s.email       = 'harun.esur@sceptive.com'
-  s.executables << 'kyle'
-  s.files       = ["lib/kyle.rb"]
-  s.homepage    =
-    'http://sceptive.com'
-  s.license       = 'MIT'
-  s.add_runtime_dependency 'highline', '~> 1.6', '>= 1.6.20'
-  s.requirements << "Ruby should be compiled with openssl support."
+Gem::Specification.new do |gem|
+  gem.name        = 'kyle'
+  gem.version     = '0.0.5'
+  gem.date        = '2014-09-17'
+
+  gem.summary     = 'Kyle'
+  gem.description = 'A password manager for paranoids.'
+  gem.authors     = ['Harun Esur', 'Isaac Seymour']
+  gem.email       = 'harun.esur@sceptive.com'
+  gem.homepage    = 'http://sceptive.com'
+  gem.license     = 'MIT'
+  gem.requirements << 'Ruby should be compiled with openssl support.'
+
+  gem.executables << 'kyle'
+
+  gem.files = `git ls-files`.split("\n")
+
+  gem.add_runtime_dependency 'highline', '~> 1.6', '>= 1.6.20'
+
+  gem.add_development_dependency 'rubocop', '~> 0.26'
+  gem.add_development_dependency 'rspec', '~> 3.0.0'
 end
