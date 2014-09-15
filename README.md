@@ -19,8 +19,8 @@ And kyle differs with password generators with;
 
 ### Installation
 
-```bash
-sh$ gem install kyle
+```
+$ gem install kyle
 ```
 
 ### Usage
@@ -61,12 +61,32 @@ Zebra	asVw!Q/5!QvqxiRf
 ```
 Pick any password depending on your favourite animal.
 
+#### Updates on 0.0.4 version
+
+##### Added -a (Auto) mode which helps you choose from one of savedhost/account/port records saved with -r;
+
+
+
+```
+$ kyle -a 
+
+Kyle - A password manager for paranoids. ( 0.0.4 )
+
+0 - microsoft.com:bill:22
+1 - amazon.com:joe:443
+2 - rec.ibm.com:superroot:22
+..
+..
+
+Selection:
+```
+
 #### Updates on 0.0.2 version
 
 ##### Added -b (BATCH) mode which help you generate bulk passwords;
 
 ```
-kyle -b <kyle_record_file> <favourite_animal>
+$ kyle -b <kyle_record_file> <favourite_animal>
 
 <kyle_record_file> a file contains host, account, port data with ; delimited. Ex: facebook.com;zuckerberg;80
 <favourite_animal> your favourite animal name

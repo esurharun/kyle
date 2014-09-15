@@ -189,7 +189,7 @@ class Kyle
 
   def self.run(args)
 
-    puts "Kyle - A password manager for paranoids. ( 0.0.2 )"
+    puts "Kyle - A password manager for paranoids. ( 0.0.4 )"
     puts ""
 
     if (args.size > 0 && args[0] == "test")
@@ -221,14 +221,41 @@ class Kyle
       end
 
     else
-      hostname = ask("Hostname:")
-      account  = ask("Account:")
-      port  = ask("Port:")
+
+      hostname = ""
+      account = ""
+      port = ""
+
+      # Record given parameters to .kyle file at home
+      kyle_r_path = File.join(Dir.home,".kyle")
+
+      if (args.size > 0 && args[0].to_s.downcase == "-a") 
+        recs = []
+        iA = 0
+        File.open(kyle_r_path).each do |line|
+          recs << line.rstrip!
+          puts "#{iA} - #{line}"
+          iA+=1
+        end
+
+        puts("")
+        idx = ask("Selection:")
+
+        r = recs[idx.to_i].split(";")
+
+        hostname = r[0]
+        account = r[1]
+        port = r[2]
+
+      else      
+        hostname = ask("Hostname:")
+        account  = ask("Account:")
+        port  = ask("Port:")
+      end
       key  = getkey()
 
       if (args.size > 0 && args[0].to_s.downcase == "-r") 
-        # Record given parameters to .kyle file at home
-        kyle_r_path = File.join(Dir.home,".kyle")
+        
 
         line_to_add = "#{hostname};#{account};#{port}"
 
