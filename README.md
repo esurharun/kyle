@@ -86,6 +86,9 @@ didn't make a typo.
 
 Adding the `-r` flag saves the hostname/account/port combination in `~/.kyle`.
 
+Adding `-a ` flag lets you choose from one of savedhost/account/port records saved with -r;
+
+
 #### Batch usage
 
 ```bash
@@ -107,16 +110,22 @@ amazon.com;bezos;443
 
 ### Changelog
 
-#### 0.0.3
+#### 0.0.5
 
-* Refactored code to have proper Rspec tests, and respect Rubocop conventions
+* Merge version with Isaac Seymour's efforts to unify multiple development lines that includes;
 
-* Added ability to specify hostname, account, port, and animal as args to the
+    * Refactored code to have proper Rspec tests, and respect Rubocop conventions
+
+    * Added ability to specify hostname, account, port, and animal as args to the
   executable
+
+#### 0.0.4
+
+* Added -a (Auto) flag
 
 #### 0.0.2
 
-* Added -b (BATCH) mode which help you generate bulk passwords
+* Added -b (BATCH) mode which help you generate bulk passwords;
 
 * Added -r option to add entered values to <USER_HOME>/.kyle file
 

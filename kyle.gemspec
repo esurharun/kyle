@@ -1,7 +1,7 @@
 Gem::Specification.new do |gem|
   gem.name        = 'kyle'
-  gem.version     = '0.0.3'
-  gem.date        = '2014-09-14'
+  gem.version     = '0.0.5'
+  gem.date        = '2014-09-17'
 
   gem.summary     = 'Kyle'
   gem.description = 'A password manager for paranoids.'
