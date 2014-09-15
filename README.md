@@ -75,9 +75,8 @@ command:
 $ kyle abc.com superuser 80 jackal
 Key:
 
-Generating...
 
-zhRwHPWCHknxlZp
++zhRwHPWCHknxlZp
 ```
 
 Arguments must in this order, but any missing ones will be prompted for.
@@ -88,6 +87,7 @@ didn't make a typo.
 Adding the `-r` flag saves the hostname/account/port combination in `~/.kyle`.
 
 Adding `-a ` flag lets you choose from one of savedhost/account/port records saved with -r;
+
 
 #### Batch usage
 
