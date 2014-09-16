@@ -9,7 +9,12 @@ class KyleCommands
   end
 
   def run
-    batch? ? batch_generate : single_generate
+    puts 'Kyle - A password manager for paranoids. ( 0.0.5 )'
+    puts ''
+
+    batch_generate if batch?
+    single_generate_choose if single_by_choose?
+    single_generate if !batch? && !single_by_choose?
   end
 
   def ask_for_key
@@ -46,15 +51,43 @@ class KyleCommands
     end
   end
 
-  def record
-    # Record given parameters to .kyle file at home
-    kyle_r_path = File.join(Dir.home, '.kyle')
+  def kyle_r_path
+    File.join(Dir.home, '.kyle')
+  end
 
+  def record
     line_to_add = "#{hostname};#{account};#{port}"
 
     File.open(kyle_r_path, 'a') do |file|
       file.puts line_to_add
     end
+  end
+
+  def saved_records
+    recs = []
+    i_a = 0
+    File.open(kyle_r_path).each do |line|
+      recs << line.rstrip!
+      puts "#{i_a} - #{line}"
+      i_a += 1
+    end
+
+    recs
+  end
+
+  def single_generate_choose
+    recs = saved_records
+
+    puts('')
+    idx = ask('Selection:')
+
+    r = recs[idx.to_i].split(';')
+
+    @hostname = r[0]
+    @account = r[1]
+    @port = r[2]
+
+    single_generate
   end
 
   def single_generate
@@ -74,11 +107,15 @@ class KyleCommands
   end
 
   def check?
-    args.include? '-c'
+    (args.include? '-c') || (record?)
   end
 
   def batch?
     args.include? '-b'
+  end
+
+  def single_by_choose?
+    args.include? '-a'
   end
 
   def main_args
@@ -105,6 +142,9 @@ class KyleCommands
   end
 
   def make_passwords(hostname, account, port, key)
+    puts 'Generating...'
+    puts ''
+
     Kyle.new(hostname, account, port, key).passwords
   end
 
